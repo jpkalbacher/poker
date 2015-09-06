@@ -1,6 +1,7 @@
-require_'card'
+require_relative 'card'
 
 class Deck
+
 
   def initialize
     @cards = populate_deck
@@ -8,8 +9,8 @@ class Deck
 
   def populate_deck
     cards = []
-    Card::SUIT_STRINGS.each do |suit|
-      Card::VALUE_STRINGS.each do |value|
+    Card::SUIT_STRINGS.keys.each do |suit|
+      Card::VALUE_STRINGS.keys.each do |value|
         cards << Card.new(suit,value)
       end
     end
@@ -20,7 +21,15 @@ class Deck
     @cards.length
   end
 
-  def get_card
-    @cards.delete_at(rand(count))
+  def shuffle
+    @cards.shuffle!
+  end
+
+  def take(n)
+    @cards.shift(n)
+  end
+
+  def return_cards(cards)
+    @cards.concat(cards)
   end
 end

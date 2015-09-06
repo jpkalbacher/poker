@@ -1,18 +1,27 @@
-require_relative 'card.rb'
-require_relative 'deck.rb'
+require_relative 'card'
+require_relative 'deck'
 
 class Hand
   ORDERED_CARDS = [:deuce, :three, :four, :five, :six, :seven, :eight,
                    :nine, :ten, :jack, :queen, :king, :ace]
 
-  attr_reader :cards
+  attr_accessor :cards
 
   def initialize
     @cards = []
   end
 
+  def beats?(other_hand)
+    self.hand_rank > other_hand.hand_rank
+  end
+
+  def return_to_deck(deck)
+    deck.return_cards(self.cards)
+    @cards = []
+  end
+
   def receive_card(card)
-    @cards << card unless card.nil?
+    @cards.concat(card) unless card.nil?
   end
 
   def discard_card(card)
@@ -94,7 +103,9 @@ class Hand
 
     hash
   end
+
 end
+
 
 class NoSuchCardError < StandardError
 end

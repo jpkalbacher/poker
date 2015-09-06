@@ -38,11 +38,10 @@ class Card
 
   def ==(other_card)
     return false if other_card.nil?
-
     value == other_card.value && suit == other_card.suit
   end
 
   def to_s
-    VALUE_STRINGS[value] + SUIT_STRINGS[suit]
+    VALUE_STRINGS[self.value] + SUIT_STRINGS[self.suit]
   end
 end
